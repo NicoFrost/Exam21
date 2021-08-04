@@ -13,12 +13,14 @@ function mostrar()
     let cepaBeta = 0;
     let contagiadosArg = 0;
     let edadMaxExtraño = 0;
+    let porcentajePositivos = 0;
+    let porcentajeNegativos = 0;
 
 
     do {
-		nacionalidad = prompt("Ingrese nacionalidad del Viajero").toLowerCase();
+		nacionalidad = prompt("Ingrese nacionalidad del Viajero (argentina/extranjero)").toLowerCase();
 		while(isNaN(nacionalidad) && !(nacionalidad == "argentina" || nacionalidad == "extranjero") ){
-            nacionalidad = prompt("Ingrese nacionalidad del viajero").toLowerCase();
+            nacionalidad = prompt("ERROR: Ingrese BIEN la nacionalidad del viajero (argentina/extranjero) ").toLowerCase();
 		}
 		edad = parseInt(prompt("ingrese edad (solo se permite desde los 18 hasta los 65)"));
 		while(!(isNaN(edad)) && (edad < 18 || edad > 65)){
@@ -37,13 +39,6 @@ function mostrar()
             cepa = "ninguna"
             alert("se ha pre-seleccionado la cepa ninguna")
         }
- /*
-Luego del ingreso informar:
-a- Porcentaje de positivos
-b- Porcentaje de negativos
-c- Cuál es la cepa más encontrada
-d- Edad del mayor extranjero contagiado
-e- Cantidad de personas argentinas contagiadas con la delta*/
 
         if (resultado == "positivo") {
             positivos++;
@@ -62,19 +57,24 @@ e- Cantidad de personas argentinas contagiadas con la delta*/
             cepaBeta++;
         }
 
-        if (nacionalidad == "extranjero" && edad > edadMaxExtraño) {
+        if (resultado == "positivo" && nacionalidad == "extranjero" && edad > edadMaxExtraño) {
             edadMaxExtraño = edad;
         }
         viajeros++;
         seguir = prompt("hay mas viajeros?");
 	} while (seguir == "si");
 
-    if (cepaAlpha > cepaDelta && cepaAlpha > cepaBeta){
-        al
-    } else if (cepaDelta > cepaAlpha && cepaDelta > cepaBeta){
-
+    porcentajePositivos = positivos * 100 / viajeros;
+    porcentajeNegativos = negativos * 100 / viajeros;
+    
+    alert("el porcentaje de positivos es %" + porcentajePositivos + "\n porcentaje de negativos es de %" + porcentajeNegativos);
+    if (cepaAlpha >= cepaDelta && cepaAlpha >= cepaBeta){
+        alert("La mas encontrada fue la cepa ALPHA");
+    } else if (cepaDelta >= cepaAlpha && cepaDelta >= cepaBeta){
+        alert("La mas encontrada fue la cepa DELTA");
+        
     } else{
-
+        alert("La mas encontrada fue la cepa BETA");
     }
-
+    alert("la edad del mayor extranjero contagiado es " + edadMaxExtraño + "\n contagiados argentinos con la cepa delta fueron " + contagiadosArg);
 }
